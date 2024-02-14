@@ -1,15 +1,24 @@
-<!doctype html>
-<html class="no-js" lang="">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Chart.js example</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbox and Data Viz</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-<!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
-<div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
+<body style="display: flex;">
 
-<!-- <script type="module" src="dimensions.js"></script> -->
-<script type="module" src="acquisitions.js"></script>
+<!-- Chatbox container -->
+<div id="main-container">
+<!--  <script type="module" src="socket.js"></script>-->
+  <script type="module" src="chatbox.js"></script>
+</div>
+
+<!-- Data Visualization container -->
+<div id="viz-container" style="width: 75%; background-color: lightgray; overflow: hidden;">
+  <div style="width: 100%;"><canvas id="acquisitions" style="width: 100%;"></canvas></div>
+  <script type="module" src="acquisitions.js"></script>
+</div>
+
 </body>
-
 </html>

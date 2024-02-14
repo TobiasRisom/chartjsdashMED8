@@ -245,3 +245,80 @@ textarea {
   }
 }
 
+/* styles.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex; /* Use flexbox to arrange the chatbox and viz side by side */
+
+}
+
+#main-container {
+  width: 25%;
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+
+}
+
+#chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+  justify-content: flex-end;
+
+}
+
+#messages {
+  flex-grow: 1;
+  overflow-y: auto;
+
+}
+
+#input-container {
+  display: flex;
+  margin-top: 10px;
+
+}
+
+input {
+  flex-grow: 1;
+  padding: 5px;
+
+}
+
+button {
+  padding: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.user-message {
+  background-color: #ff4081; /* Pink background color */
+  color: #fff; /* White text color */
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  max-width: 70%; /* Adjust as needed */
+  align-self: flex-end;
+}
+
+.received-message {
+  background-color: #fce4ec; /* Pink background color */
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  max-width: 70%; /* Adjust as needed */
+  align-self: flex-start;
+}
+
+#viz-container {
+  width: 75%; /* Specify the width of the viz container */
+  background-color: lightgray; /* Adjust as needed */
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
