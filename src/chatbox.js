@@ -39,8 +39,6 @@ function createChatbox() {
     console.error("Target container not found!");
   }
   //document.body.appendChild(chatContainer);
-
-  console.log(getURL())
 }
 
 /*document.addEventListener("DOMContentLoaded", function() {
@@ -67,7 +65,7 @@ async function sendMessage() {
 
     messageInput.value = "";
 
-    const url = 'https://dashboards.create.aau.dk:5005/webhooks/rest/webhook';
+    const url = 'http://localhost:5005/webhooks/rest/webhook';
     const data = {
       message: message
     };

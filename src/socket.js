@@ -24,7 +24,7 @@ export function sendMessageToServer(message) {
 }
 */
 function sendMessage() {
-  const url = 'http://dashboards.create.aau.dk:5005/webhooks/rest/webhook';
+  const url = 'http://localhost:5005/webhooks/rest/webhook';
   const data = {
     message: 'info'
   };

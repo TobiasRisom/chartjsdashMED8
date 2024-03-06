@@ -9,8 +9,9 @@
   "license": "MIT",
   "author": "",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "dev": "parcel index.html",
+    "build": "parcel build --dist-dir public index.html",
+    "start": "parcel index.html"
   },
   "devDependencies": {
     "@cubejs-client/core": "^0.34.37",
