@@ -1,3 +1,4 @@
+/*
 // socket.js
 
 const socket = new WebSocket("ws://your-server-address");
@@ -20,4 +21,22 @@ socket.addEventListener("message", function(event) {
 // Function to send messages to the server
 export function sendMessageToServer(message) {
   socket.send(message);
+}
+*/
+function sendMessage() {
+  const url = 'http://dashboards.create.aau.dk:5005/webhooks/rest/webhook';
+  const data = {
+    message: 'info'
+  };
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
 }

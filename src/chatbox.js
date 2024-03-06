@@ -39,6 +39,8 @@ function createChatbox() {
     console.error("Target container not found!");
   }
   //document.body.appendChild(chatContainer);
+
+  console.log(getURL())
 }
 
 /*document.addEventListener("DOMContentLoaded", function() {
@@ -46,7 +48,7 @@ function createChatbox() {
 });*/
 
 
-function sendMessage() {
+async function sendMessage() {
   const messageInput = document.getElementById("messageInput");
   const message = messageInput.value;
 
@@ -64,6 +66,40 @@ function sendMessage() {
     //sendMessageToServer(message);
 
     messageInput.value = "";
+
+    const url = 'https://dashboards.create.aau.dk:5005/webhooks/rest/webhook';
+    const data = {
+      message: message
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      const responseDataArray = responseData.messages || []
+
+
+      responseData.forEach(message => {
+        console.log(message.text);
+        const botMessage = document.createElement("div");
+        botMessage.classList.add("received-message");
+        botMessage.textContent = message.text;
+        messagesContainer.appendChild(botMessage);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle the error as needed, e.g., show an error message to the user
+    }
   }
 }
 
@@ -71,3 +107,14 @@ createChatbox()
 
 // Import the socket script
 //import { sendMessageToServer } from "./socket.js";
+
+async function getURL () {
+  const url = 'https://dashboards.create.aau.dk:5005/status';
+
+  const response = await fetch(url);
+  if(response.status === 200) {
+    return "http://localhost:5005"
+  } else {
+    return "https://dashboards.create.aau.dk:5005"
+  }
+}
