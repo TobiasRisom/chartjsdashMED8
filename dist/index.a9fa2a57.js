@@ -610,7 +610,6 @@ function createChatbox() {
     var targetContainer = document.getElementById("main-container");
     if (targetContainer) targetContainer.appendChild(chatContainer);
     else console.error("Target container not found!");
-//document.body.appendChild(chatContainer);
 }
 /*document.addEventListener("DOMContentLoaded", function() {
   createChatbox();
@@ -656,8 +655,6 @@ function createChatbox() {
     }
 }
 createChatbox();
-// Import the socket script
-//import { sendMessageToServer } from "./socket.js";
 async function getURL() {
     const url = "https://dashboards.create.aau.dk:5005/status";
     const response = await fetch(url);

@@ -38,7 +38,7 @@ function createChatbox() {
   } else {
     console.error("Target container not found!");
   }
-  //document.body.appendChild(chatContainer);
+
 }
 
 /*document.addEventListener("DOMContentLoaded", function() {
@@ -48,6 +48,7 @@ function createChatbox() {
 
 async function sendMessage() {
   const messageInput = document.getElementById("messageInput");
+
   const message = messageInput.value;
 
   if (message.trim() !== "") {
@@ -102,9 +103,6 @@ async function sendMessage() {
 }
 
 createChatbox()
-
-// Import the socket script
-//import { sendMessageToServer } from "./socket.js";
 
 async function getURL () {
   const url = 'https://dashboards.create.aau.dk:5005/status';
