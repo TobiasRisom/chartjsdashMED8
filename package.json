@@ -10,7 +10,7 @@
   "author": "",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build --dist-dir public index.html",
+    "build": "parcel build index.html",
     "start": "parcel index.html"
   },
   "devDependencies": {
