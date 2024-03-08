@@ -66,7 +66,7 @@ async function sendMessage() {
 
     messageInput.value = "";
 
-    const url = 'http://dashboards.create.aau.dk/webhooks/rest/webhook';
+    const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
     const data = {
       message: message
     };
