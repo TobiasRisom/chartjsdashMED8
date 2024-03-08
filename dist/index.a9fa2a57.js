@@ -626,7 +626,7 @@ function createChatbox() {
         // Call the send function from the imported socket script
         //sendMessageToServer(message);
         messageInput.value = "";
-        const url = "http://localhost:5005/webhooks/rest/webhook";
+        const url = "http://dashboards.create.aau.dk/webhooks/rest/webhook";
         const data = {
             message: message
         };
