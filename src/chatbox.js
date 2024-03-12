@@ -39,6 +39,7 @@ function createChatbox() {
     console.error("Target container not found!");
   }
 
+
 }
 
 /*document.addEventListener("DOMContentLoaded", function() {
@@ -66,6 +67,7 @@ async function sendMessage() {
 
     messageInput.value = "";
 
+    //const url = 'http://localhost:5005/webhooks/rest/webhook';//'https://dashboards.create.aau.dk/webhooks/rest/webhook';
     const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
     const data = {
       message: message
@@ -94,7 +96,7 @@ async function sendMessage() {
         botMessage.classList.add("received-message");
         botMessage.textContent = message.text;
         messagesContainer.appendChild(botMessage);
-      });
+      })
     } catch (error) {
       console.error('Error:', error);
       // Handle the error as needed, e.g., show an error message to the user
@@ -105,7 +107,7 @@ async function sendMessage() {
 createChatbox()
 
 async function getURL () {
-  const url = 'https://dashboards.create.aau.dk:5005/status';
+  const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook/status';
 
   const response = await fetch(url);
   if(response.status === 200) {
