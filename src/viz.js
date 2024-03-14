@@ -2,62 +2,66 @@
 
 // Function to create the line chart
 import Chart from "chart.js/auto";
-import data from './data.json'
+//import data from './data.json'
 // visualization.js
 
 // Function to create the line chart
-function createLineChart(data) {
+export async function createLineChart() {
   // Extracting YQ and Value from the JSON data
+  let data = await fetchData()
+
   console.log(data)
 
-
-  //const labels = data.map(entry => entry.YQ);
-  //const values = data.map(entry => entry.Value);
-  const labels = [];
-  const values = [];
-
-  // Iterate over the array
-  for (let i = 0; i < data.length; i++) {
-    const entry = data[i];
-    console.log(`Entry ${i + 1}:`, entry);
-
-    if (entry && entry.YQ !== undefined && entry.Value !== undefined) {
-      labels.push(entry.YQ);
-      values.push(entry.Value);
-    } else {
-      console.error(`Invalid entry at index ${i}:`, entry);
-    }
-  }
+  const labels = data.map(item => item.YQ);
+  const values = data.map(item => item.Value);
 
   console.log('Labels:', labels);
   console.log('Values:', values);
   // Creating a line chart
   const ctx = document.getElementById('viz');
+  let chartStatus = Chart.getChart(ctx)
+  if (chartStatus !== undefined) {
+    chartStatus.destroy();
+  }
+
   new Chart(ctx, {
     type: 'line',
     data: {
       labels: labels,
       datasets: [{
-        label: 'Value',
+        label: 'Timeline Chart',
         data: values,
-        borderColor: 'rgba(75, 190, 192, 1)', // You can customize the color
+        borderColor: '#ff4081',
         borderWidth: 2,
-        fill: false
+        pointRadius: 5,
+        pointBackgroundColor: '#ff4081',
       }]
     },
     options: {
       scales: {
         x: {
-          type: 'linear', // Assuming YQ is a numeric value, otherwise use 'category'
-          position: 'bottom'
+          type: 'category', // Use category scale for YQ values
+          position: 'bottom',
+          title: {
+            display: true,
+            text: 'YQ'
+          }
         },
         y: {
-          beginAtZero: true
+          title: {
+            display: true,
+            text: 'Value'
+          }
         }
       }
     }
   });
 }
 
+async function fetchData() {
+  const response = await import('/data/data');
+  return await response;
+}
+
 // Fetch data from data.json and create the chart
-createLineChart(data)
+createLineChart().then(r => console.log("done"))

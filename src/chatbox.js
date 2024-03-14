@@ -42,11 +42,6 @@ function createChatbox() {
 
 }
 
-/*document.addEventListener("DOMContentLoaded", function() {
-  createChatbox();
-});*/
-
-
 async function sendMessage() {
   const messageInput = document.getElementById("messageInput");
 
@@ -62,13 +57,10 @@ async function sendMessage() {
 
     messagesContainer.appendChild(userMessage);
 
-    // Call the send function from the imported socket script
-    //sendMessageToServer(message);
-
     messageInput.value = "";
 
-    //const url = 'http://localhost:5005/webhooks/rest/webhook';//'https://dashboards.create.aau.dk/webhooks/rest/webhook';
-    const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
+    const url = 'http://localhost:5005/webhooks/rest/webhook';//'https://dashboards.create.aau.dk/webhooks/rest/webhook';
+    //const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
     const data = {
       message: message
     };
@@ -101,10 +93,15 @@ async function sendMessage() {
       console.error('Error:', error);
       // Handle the error as needed, e.g., show an error message to the user
     }
+    import("./viz").then(function (viz) {
+      console.log("I am called")
+      viz.createLineChart()
+    });
   }
 }
 
 createChatbox()
+
 
 async function getURL () {
   const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook/status';

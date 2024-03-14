@@ -20,7 +20,7 @@ app.post('/rasa-webhook', (req, res) => {
 
 
   const fileName = file_type === "args" ? 'args.json' : 'data.json';
-  const filePath = path.join(__dirname, fileName);
+  const filePath = path.join(__dirname, '..', 'data', fileName);
 
   fs.writeFile(filePath, decompressedContent, (err) => {
     if (err) {
