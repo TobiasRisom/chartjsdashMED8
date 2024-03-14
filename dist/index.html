@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbox and Data Viz</title>
+  <link rel="stylesheet" href="/index.b2625c6b.css">
+  <!--  <script type="module" src="socket.js"></script>-->
+  <script src="/index.a9fa2a57.js" defer=""></script>
+  <script src="/index.b2f83f57.js" defer=""></script>
+</head>
+
+<body style="display: flex">
+  <!-- Chatbox container -->
+  <main id="main-container">
+    <div id="chat-container">
+      <div id="chat">
+      </div>
+      <div id="input-container">
+        <input id="input" type="text" placeholder="Type a message...">
+        <button id="send">
+          <svg width="48" height="44" viewbox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 5.5L12 22L6 38.5L44 22L6 5.5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M12 22H44" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Data Visualization container -->
+    <div id="viz-container" style="background-color: #fff; width: 75%; overflow: hidden">
+      <canvas id="viz" style="width: 100%"></canvas>
+    </div>
+  </main>
+
+
+</body>
+
+</html>
