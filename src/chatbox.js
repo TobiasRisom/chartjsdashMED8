@@ -94,7 +94,6 @@ async function sendMessage() {
       // Handle the error as needed, e.g., show an error message to the user
     }
     import("./viz").then(function (viz) {
-      console.log("I am called")
       viz.createLineChart()
     });
   }
