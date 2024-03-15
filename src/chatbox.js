@@ -1,63 +1,49 @@
 // chatbox.js
 
-function createChatbox() {
-  console.log("createChatbox function called");
-
-  const chatContainer = document.createElement("div");
-  chatContainer.id = "chat-container";
-
-  const chatbox = document.createElement("div");
-  chatbox.id = "chatbox";
-
-  const messagesContainer = document.createElement("div");
-  messagesContainer.id = "messages";
-
-  const inputContainer = document.createElement("div");
-  inputContainer.id = "input-container";
-
-  const messageInput = document.createElement("input");
-  messageInput.type = "text";
-  messageInput.id = "messageInput";
-  messageInput.placeholder = "Type your message...";
-
-  const sendButton = document.createElement("button");
-  sendButton.textContent = "Send";
+function setupEventListeners() {
+  const messageInput = document.getElementById("input");
+  messageInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  });
+  const sendButton = document.getElementById("send");
   sendButton.onclick = sendMessage;
-
-  inputContainer.appendChild(messageInput);
-  inputContainer.appendChild(sendButton);
-
-  chatbox.appendChild(messagesContainer);
-  chatbox.appendChild(inputContainer);
-  chatContainer.appendChild(chatbox);
-
-  var targetContainer = document.getElementById('main-container');
-  if (targetContainer) {
-    targetContainer.appendChild(chatContainer);
-
-  } else {
-    console.error("Target container not found!");
-  }
-
-
-}
+};
 
 async function sendMessage() {
-  const messageInput = document.getElementById("messageInput");
+  const messageInput = document.getElementById("input");
 
   const message = messageInput.value;
 
   if (message.trim() !== "") {
-    const messagesContainer = document.getElementById("messages");
-    const userMessage = document.createElement("div");
+    const chatContainer = document.getElementById("chat");
+    const messageContainer = document.createElement("div");
+    messageContainer.classList.add("message-container");
 
-    // User message styling
+    // User message
+    const userMessage = document.createElement("p");
     userMessage.classList.add("user-message");
     userMessage.textContent = message;
 
-    messagesContainer.appendChild(userMessage);
+
+    const messengerID = document.createElement("p");
+    messengerID.classList.add("messenger-id");
+    messengerID.textContent = "User:";
+
+    messageContainer.appendChild(messengerID);
+    messageContainer.appendChild(userMessage);
+
+    // Ship it to frontend
+    chatContainer.appendChild(messageContainer);
 
     messageInput.value = "";
+
+    const botMessage = document.createElement("div");
+    botMessage.classList.add("received-message");
+    botMessage.textContent = "I am a bot";
+    chatContainer.appendChild(botMessage);
+    return
 
     const url = 'http://localhost:5005/webhooks/rest/webhook';//'https://dashboards.create.aau.dk/webhooks/rest/webhook';
     //const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
@@ -87,7 +73,7 @@ async function sendMessage() {
         const botMessage = document.createElement("div");
         botMessage.classList.add("received-message");
         botMessage.textContent = message.text;
-        messagesContainer.appendChild(botMessage);
+        chatContainer.appendChild(botMessage);
       })
     } catch (error) {
       console.error('Error:', error);
@@ -99,14 +85,14 @@ async function sendMessage() {
   }
 }
 
-createChatbox()
+setupEventListeners();
 
 
-async function getURL () {
+async function getURL() {
   const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook/status';
 
   const response = await fetch(url);
-  if(response.status === 200) {
+  if (response.status === 200) {
     return "http://localhost:5005"
   } else {
     return "https://dashboards.create.aau.dk:5005"
