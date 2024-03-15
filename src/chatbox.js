@@ -39,11 +39,11 @@ async function sendMessage() {
 
     messageInput.value = "";
 
-    const botMessage = document.createElement("div");
-    botMessage.classList.add("received-message");
-    botMessage.textContent = "I am a bot";
-    chatContainer.appendChild(botMessage);
-    return
+    //const botMessage = document.createElement("div");
+    //botMessage.classList.add("received-message");
+    //botMessage.textContent = "I am a bot";
+    //chatContainer.appendChild(botMessage);
+    //return
 
     const url = 'http://localhost:5005/webhooks/rest/webhook';//'https://dashboards.create.aau.dk/webhooks/rest/webhook';
     //const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';

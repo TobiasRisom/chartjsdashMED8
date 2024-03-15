@@ -612,12 +612,41 @@ async function sendMessage() {
         // Ship it to frontend
         chatContainer.appendChild(messageContainer);
         messageInput.value = "";
-        const botMessage = document.createElement("div");
-        botMessage.classList.add("received-message");
-        botMessage.textContent = "I am a bot";
-        chatContainer.appendChild(botMessage);
-        var message1, error;
-        return;
+        //const botMessage = document.createElement("div");
+        //botMessage.classList.add("received-message");
+        //botMessage.textContent = "I am a bot";
+        //chatContainer.appendChild(botMessage);
+        //return
+        const url = "http://localhost:5005/webhooks/rest/webhook"; //'https://dashboards.create.aau.dk/webhooks/rest/webhook';
+        //const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
+        const data = {
+            message: message
+        };
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            const responseData = await response.json();
+            const responseDataArray = responseData.messages || [];
+            responseData.forEach((message)=>{
+                console.log(message.text);
+                const botMessage = document.createElement("div");
+                botMessage.classList.add("received-message");
+                botMessage.textContent = message.text;
+                chatContainer.appendChild(botMessage);
+            });
+        } catch (error) {
+            console.error("Error:", error);
+        // Handle the error as needed, e.g., show an error message to the user
+        }
+        require("2d773bba916997e6").then(function(viz) {
+            viz.createLineChart();
+        });
     }
 }
 setupEventListeners();
@@ -627,6 +656,109 @@ async function getURL() {
     if (response.status === 200) return "http://localhost:5005";
     else return "https://dashboards.create.aau.dk:5005";
 }
+
+},{"2d773bba916997e6":"aXzLB"}],"aXzLB":[function(require,module,exports) {
+module.exports = require("5bf27e11bd6e4ca5")(require("172d5feef6c8e54d").getBundleURL("4EIhp") + "viz.b2f83f57.js" + "?" + Date.now()).catch((err)=>{
+    delete module.bundle.cache[module.id];
+    throw err;
+}).then(()=>module.bundle.root("dNh3d"));
+
+},{"5bf27e11bd6e4ca5":"61B45","172d5feef6c8e54d":"lgJ39"}],"61B45":[function(require,module,exports) {
+"use strict";
+var cacheLoader = require("ca2a84f7fa4a3bb0");
+module.exports = cacheLoader(function(bundle) {
+    return new Promise(function(resolve, reject) {
+        // Don't insert the same script twice (e.g. if it was already in the HTML)
+        var existingScripts = document.getElementsByTagName("script");
+        if ([].concat(existingScripts).some(function isCurrentBundle(script) {
+            return script.src === bundle;
+        })) {
+            resolve();
+            return;
+        }
+        var preloadLink = document.createElement("link");
+        preloadLink.href = bundle;
+        preloadLink.rel = "preload";
+        preloadLink.as = "script";
+        document.head.appendChild(preloadLink);
+        var script = document.createElement("script");
+        script.async = true;
+        script.type = "text/javascript";
+        script.src = bundle;
+        script.onerror = function(e) {
+            var error = new TypeError("Failed to fetch dynamically imported module: ".concat(bundle, ". Error: ").concat(e.message));
+            script.onerror = script.onload = null;
+            script.remove();
+            reject(error);
+        };
+        script.onload = function() {
+            script.onerror = script.onload = null;
+            resolve();
+        };
+        document.getElementsByTagName("head")[0].appendChild(script);
+    });
+});
+
+},{"ca2a84f7fa4a3bb0":"j49pS"}],"j49pS":[function(require,module,exports) {
+"use strict";
+var cachedBundles = {};
+var cachedPreloads = {};
+var cachedPrefetches = {};
+function getCache(type) {
+    switch(type){
+        case "preload":
+            return cachedPreloads;
+        case "prefetch":
+            return cachedPrefetches;
+        default:
+            return cachedBundles;
+    }
+}
+module.exports = function(loader, type) {
+    return function(bundle) {
+        var cache = getCache(type);
+        if (cache[bundle]) return cache[bundle];
+        return cache[bundle] = loader.apply(null, arguments).catch(function(e) {
+            delete cache[bundle];
+            throw e;
+        });
+    };
+};
+
+},{}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+}
+// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
 
 },{}]},["1ZN8K","7LLTF"], "7LLTF", "parcelRequirefe81")
 
