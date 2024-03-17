@@ -592,14 +592,29 @@ function setupEventListeners() {
     });
     const sendButton = document.getElementById("send");
     sendButton.onclick = sendMessage;
+    const menuButton = document.getElementById("pop-up-button");
+    menuButton.onclick = openMenu;
+}
+function openMenu() {
+    const menu = document.getElementById("pop-up");
+    const menuButton = document.getElementById("pop-up-button");
+    if (menu.classList.contains("pop-up-expanded")) {
+        menu.classList.remove("pop-up-expanded");
+        menuButton.classList.remove("rotate");
+    } else {
+        menu.classList.add("pop-up-expanded");
+        menuButton.classList.add("rotate");
+    }
 }
 async function sendMessage() {
     const messageInput = document.getElementById("input");
     const message = messageInput.value;
     if (message.trim() !== "") {
         const chatContainer = document.getElementById("chat");
-        const messageContainer = document.createElement("div");
-        messageContainer.classList.add("message-container");
+        const userMessageContainer = document.createElement("div");
+        userMessageContainer.classList.add("message-container");
+        const chatbotMessageContainer = document.createElement("div");
+        chatbotMessageContainer.classList.add("ca-message-container");
         // User message
         const userMessage = document.createElement("p");
         userMessage.classList.add("user-message");
@@ -607,48 +622,24 @@ async function sendMessage() {
         const messengerID = document.createElement("p");
         messengerID.classList.add("messenger-id");
         messengerID.textContent = "User:";
-        messageContainer.appendChild(messengerID);
-        messageContainer.appendChild(userMessage);
+        userMessageContainer.appendChild(messengerID);
+        userMessageContainer.appendChild(userMessage);
         // Ship it to frontend
-        chatContainer.appendChild(messageContainer);
+        chatContainer.appendChild(userMessageContainer);
         messageInput.value = "";
-        //const botMessage = document.createElement("div");
-        //botMessage.classList.add("received-message");
-        //botMessage.textContent = "I am a bot";
-        //chatContainer.appendChild(botMessage);
-        //return
-        const url = "http://localhost:5005/webhooks/rest/webhook"; //'https://dashboards.create.aau.dk/webhooks/rest/webhook';
-        //const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
-        const data = {
-            message: message
-        };
-        try {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            const responseData = await response.json();
-            const responseDataArray = responseData.messages || [];
-            console.log(response);
-            console.log(responseData);
-            responseData.forEach((message)=>{
-                console.log(message.text);
-                const botMessage = document.createElement("div");
-                botMessage.classList.add("received-message");
-                botMessage.textContent = message.text;
-                chatContainer.appendChild(botMessage);
-            });
-        } catch (error) {
-            console.error("Error:", error);
-        // Handle the error as needed, e.g., show an error message to the user
-        }
-        require("2d773bba916997e6").then(function(viz) {
-            viz.createLineChart();
-        });
+        // Bot message
+        const botMessage = document.createElement("p");
+        botMessage.classList.add("received-message");
+        botMessage.textContent = "I am a bot";
+        const botMessengerID = document.createElement("p");
+        botMessengerID.classList.add("chatbot-id");
+        botMessengerID.textContent = "Chatbot:";
+        chatbotMessageContainer.appendChild(botMessengerID);
+        chatbotMessageContainer.appendChild(botMessage);
+        chatContainer.appendChild(chatbotMessageContainer);
+        var message1, error;
+        return;
+
     }
 }
 setupEventListeners();
