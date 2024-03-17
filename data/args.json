@@ -1,1 +1,1 @@
-{"visualization": {"type": "line", "title": "", "variable": "ich_score", "data": {"x": "", "y": "", "color": ""}, "options": {"width": 0, "height": 0, "axes": {"xAxisLabel": "", "yAxisLabel": ""}, "legend": true}, "plot_type": "line"}}
+{"visualization": {"type": "bar", "title": "", "variable": "nihss_score", "data": {"x": "", "y": "", "color": ""}, "options": {"width": 0, "height": 0, "axes": {"xAxisLabel": "", "yAxisLabel": ""}, "legend": true}, "plot_type": "line"}}

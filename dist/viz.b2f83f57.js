@@ -608,6 +608,8 @@ async function createLineChart() {
     const values = data.map((item)=>item.Value);
     // Creating a line chart
     const ctx = document.getElementById("viz");
+    ctx.width = ctx.clientWidth; // Set canvas width to its client width
+    ctx.height = ctx.clientHeight; // Set canvas height to its client height
     let chartStatus = (0, _autoDefault.default).getChart(ctx);
     if (chartStatus !== undefined) chartStatus.destroy();
     new (0, _autoDefault.default)(ctx, {
