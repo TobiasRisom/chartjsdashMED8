@@ -21,7 +21,6 @@ export async function createLineChart() {
       console.error('Error fetching data:', error);
     });
 
-  console.log(args.visualization.type)
 
   const labels = data.map(item => item.YQ);
   const values = data.map(item => item.Value);
@@ -83,7 +82,6 @@ async function fetchData(filename) {
       return response.json(); // Parse the response body as JSON
     })
     .then(data => {
-      console.log('Received JSON data:', data);
       return data; // Return the fetched data
     })
     .catch(error => {

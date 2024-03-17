@@ -604,7 +604,6 @@ async function createLineChart() {
     }).catch((error)=>{
         console.error("Error fetching data:", error);
     });
-    console.log(args.visualization.type);
     const labels = data.map((item)=>item.YQ);
     const values = data.map((item)=>item.Value);
     // Creating a line chart
@@ -658,7 +657,6 @@ async function fetchData(filename) {
         if (!response.ok) throw new Error("Network response was not ok");
         return response.json(); // Parse the response body as JSON
     }).then((data)=>{
-        console.log("Received JSON data:", data);
         return data; // Return the fetched data
     }).catch((error)=>{
         console.error("There was a problem fetching JSON data:", error);
@@ -14116,4 +14114,4 @@ exports.export = function(dest, destName, get) {
 
 },{}]},["kOIIb","dNh3d"], "dNh3d", "parcelRequirefe81")
 
-//# sourceMappingURL=index.b2f83f57.js.map
+//# sourceMappingURL=viz.b2f83f57.js.map

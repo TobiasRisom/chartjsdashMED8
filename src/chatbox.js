@@ -66,7 +66,8 @@ async function sendMessage() {
 
       const responseData = await response.json();
       const responseDataArray = responseData.messages || []
-
+      console.log(response)
+      console.log(responseData)
 
       responseData.forEach(message => {
         console.log(message.text);
