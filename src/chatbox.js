@@ -9,7 +9,21 @@ function setupEventListeners() {
   });
   const sendButton = document.getElementById("send");
   sendButton.onclick = sendMessage;
+  const menuButton = document.getElementById("pop-up-button");
+  menuButton.onclick = openMenu;
 };
+
+function openMenu() {
+  const menu = document.getElementById("pop-up");
+  const menuButton = document.getElementById("pop-up-button");
+  if (menu.classList.contains("pop-up-expanded")) {
+    menu.classList.remove("pop-up-expanded");
+    menuButton.classList.remove("rotate");
+  } else {
+    menu.classList.add("pop-up-expanded");
+    menuButton.classList.add("rotate");
+  }
+}
 
 async function sendMessage() {
   const messageInput = document.getElementById("input");
@@ -18,31 +32,41 @@ async function sendMessage() {
 
   if (message.trim() !== "") {
     const chatContainer = document.getElementById("chat");
-    const messageContainer = document.createElement("div");
-    messageContainer.classList.add("message-container");
+    const userMessageContainer = document.createElement("div");
+    userMessageContainer.classList.add("message-container");
+    const chatbotMessageContainer = document.createElement("div");
+    chatbotMessageContainer.classList.add("ca-message-container");
 
     // User message
     const userMessage = document.createElement("p");
     userMessage.classList.add("user-message");
     userMessage.textContent = message;
 
-
     const messengerID = document.createElement("p");
     messengerID.classList.add("messenger-id");
     messengerID.textContent = "User:";
 
-    messageContainer.appendChild(messengerID);
-    messageContainer.appendChild(userMessage);
+    userMessageContainer.appendChild(messengerID);
+    userMessageContainer.appendChild(userMessage);
 
     // Ship it to frontend
-    chatContainer.appendChild(messageContainer);
+    chatContainer.appendChild(userMessageContainer);
 
     messageInput.value = "";
 
-    const botMessage = document.createElement("div");
+    // Bot message
+    const botMessage = document.createElement("p");
     botMessage.classList.add("received-message");
     botMessage.textContent = "I am a bot";
-    chatContainer.appendChild(botMessage);
+
+    const botMessengerID = document.createElement("p");
+    botMessengerID.classList.add("chatbot-id");
+    botMessengerID.textContent = "Chatbot:";
+
+    chatbotMessageContainer.appendChild(botMessengerID);
+    chatbotMessageContainer.appendChild(botMessage);
+
+    chatContainer.appendChild(chatbotMessageContainer);
     return
 
     const url = 'http://localhost:5005/webhooks/rest/webhook';//'https://dashboards.create.aau.dk/webhooks/rest/webhook';

@@ -254,6 +254,9 @@ textarea {
 
 }
 
+h1,
+h2,
+h3,
 p {
   margin: 0;
   padding: 0;
@@ -298,11 +301,11 @@ body {
 }
 
 #input-container {
-  min-height: 72px;
+  min-height: 50px;
   border-top: 3px solid black;
   display: flex;
   align-items: center;
-  padding: 10px 0;
+  padding: 8px;
 }
 
 #input {
@@ -322,8 +325,8 @@ body {
   cursor: pointer;
   outline: inherit;
 
-  min-width: 56px;
-  min-height: 52px;
+  min-width: 50px;
+  min-height: 46px;
   background: #FDE1E8;
   border-radius: 8px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -337,13 +340,20 @@ body {
 }
 
 #send>svg {
-  width: 48px;
+  width: 46px;
 }
 
 .message-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin-bottom: 8px;
+}
+
+.ca-messanger-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 8px;
 }
 
@@ -355,6 +365,7 @@ body {
   padding-bottom: 0;
   border-radius: 8px 8px 0 0;
 }
+
 
 .user-message {
   background-color: #FDE1E8;
@@ -369,27 +380,127 @@ body {
   text-align: right;
 }
 
+.chatbot-id {
+  background-color: #EFEFEF;
+  color: black;
+  font-weight: 700;
+  padding: 2px 8px;
+  padding-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  width: fit-content;
+}
 
 .received-message {
   background-color: #EFEFEF;
   color: black;
   /* Pink background color */
-  padding: 8px;
-  margin-bottom: 8px;
+  padding: 10px 8px;
   border-radius: 8px;
-  max-width: 70%;
-  /* Adjust as needed */
-  align-self: flex-start;
+  border-top-left-radius: 0;
+  max-width: 80%;
+  min-width: 40%;
+  width: fit-content;
+  text-align: left;
 }
 
 #viz-container {
   width: 75%;
   /* Specify the width of the viz container */
-  background-color: lightgray;
+  background-color: white;
   /* Adjust as needed */
   overflow: hidden;
   /* Prevent content from overflowing */
-  padding: 20px;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#title {
+  font-size: 16px;
+  font-weight: 700;
+  height: auto;
+  width: 100%;
+  text-align: left;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+#viz {
+  padding: 10px;
+}
+
+#gallery {
+  width: 100%;
+  height: 25%;
+  background: #FDE1E8;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+#pop-up {
+  position: absolute;
+  background: white;
+  /* border: black 1px solid; */
+  width: 100%;
+  height: 100%;
+  border-radius: 18px 18px 0 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 20px;
+  bottom: calc(-100% + 28px);
+  transition: all 0.2s ease-out;
+  box-shadow: 0 -4px 6 0 rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+#pop-up-arrow {
+  width: 14px;
+  height: 8px;
+  cursor: pointer;
+  transition: all .2s ease-out;
+}
+
+#pop-up-button {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  transform: rotate(180deg);
+}
+
+.rotate {
+  transform: rotate(0deg) !important;
+}
+
+.pop-up-expanded {
+  bottom: -10px !important;
+}
+
+#menu-item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  cursor: pointer;
 }
