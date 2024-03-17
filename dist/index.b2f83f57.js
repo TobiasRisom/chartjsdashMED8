@@ -596,18 +596,23 @@ var _auto = require("chart.js/auto");
 var _autoDefault = parcelHelpers.interopDefault(_auto);
 async function createLineChart() {
     // Extracting YQ and Value from the JSON data
-    let data = await fetchData();
-    console.log(data);
+    let data;
+    let args;
+    await fetchData().then((fetched_data)=>{
+        data = fetched_data.data;
+        args = fetched_data.args;
+    }).catch((error)=>{
+        console.error("Error fetching data:", error);
+    });
+    console.log(args.visualization.type);
     const labels = data.map((item)=>item.YQ);
     const values = data.map((item)=>item.Value);
-    console.log("Labels:", labels);
-    console.log("Values:", values);
     // Creating a line chart
     const ctx = document.getElementById("viz");
     let chartStatus = (0, _autoDefault.default).getChart(ctx);
     if (chartStatus !== undefined) chartStatus.destroy();
     new (0, _autoDefault.default)(ctx, {
-        type: "line",
+        type: args.visualization.type,
         data: {
             labels: labels,
             datasets: [
@@ -635,20 +640,35 @@ async function createLineChart() {
                     title: {
                         display: true,
                         text: "Value"
-                    }
+                    },
+                    beginAtZero: true
                 }
             }
         }
     });
 }
-async function fetchData() {
-    const response = await require("5719d48591f02631");
-    return await response;
+async function fetchData(filename) {
+    return fetch("http://localhost:4000/data-webhook", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({}) // Empty body since no parameters are required
+    }).then((response)=>{
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json(); // Parse the response body as JSON
+    }).then((data)=>{
+        console.log("Received JSON data:", data);
+        return data; // Return the fetched data
+    }).catch((error)=>{
+        console.error("There was a problem fetching JSON data:", error);
+        throw error;
+    });
 }
 // Fetch data from data.json and create the chart
-createLineChart().then((r)=>console.log("done"));
+createLineChart().then((r)=>console.log("Chart created"));
 
-},{"chart.js/auto":"d8NN9","5719d48591f02631":"gMEih","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d8NN9":[function(require,module,exports) {
+},{"chart.js/auto":"d8NN9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d8NN9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _chartJs = require("../dist/chart.js");
@@ -14094,109 +14114,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"gMEih":[function(require,module,exports) {
-module.exports = require("c57d8b620dc4ca4e")(require("7f340180948a25ee").getBundleURL("2PiBA") + "data.b6436a7c.js" + "?" + Date.now()).catch((err)=>{
-    delete module.bundle.cache[module.id];
-    throw err;
-}).then(()=>module.bundle.root("lQewh"));
-
-},{"c57d8b620dc4ca4e":"61B45","7f340180948a25ee":"lgJ39"}],"61B45":[function(require,module,exports) {
-"use strict";
-var cacheLoader = require("ca2a84f7fa4a3bb0");
-module.exports = cacheLoader(function(bundle) {
-    return new Promise(function(resolve, reject) {
-        // Don't insert the same script twice (e.g. if it was already in the HTML)
-        var existingScripts = document.getElementsByTagName("script");
-        if ([].concat(existingScripts).some(function isCurrentBundle(script) {
-            return script.src === bundle;
-        })) {
-            resolve();
-            return;
-        }
-        var preloadLink = document.createElement("link");
-        preloadLink.href = bundle;
-        preloadLink.rel = "preload";
-        preloadLink.as = "script";
-        document.head.appendChild(preloadLink);
-        var script = document.createElement("script");
-        script.async = true;
-        script.type = "text/javascript";
-        script.src = bundle;
-        script.onerror = function(e) {
-            var error = new TypeError("Failed to fetch dynamically imported module: ".concat(bundle, ". Error: ").concat(e.message));
-            script.onerror = script.onload = null;
-            script.remove();
-            reject(error);
-        };
-        script.onload = function() {
-            script.onerror = script.onload = null;
-            resolve();
-        };
-        document.getElementsByTagName("head")[0].appendChild(script);
-    });
-});
-
-},{"ca2a84f7fa4a3bb0":"j49pS"}],"j49pS":[function(require,module,exports) {
-"use strict";
-var cachedBundles = {};
-var cachedPreloads = {};
-var cachedPrefetches = {};
-function getCache(type) {
-    switch(type){
-        case "preload":
-            return cachedPreloads;
-        case "prefetch":
-            return cachedPrefetches;
-        default:
-            return cachedBundles;
-    }
-}
-module.exports = function(loader, type) {
-    return function(bundle) {
-        var cache = getCache(type);
-        if (cache[bundle]) return cache[bundle];
-        return cache[bundle] = loader.apply(null, arguments).catch(function(e) {
-            delete cache[bundle];
-            throw e;
-        });
-    };
-};
-
-},{}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-}
-// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
 },{}]},["kOIIb","dNh3d"], "dNh3d", "parcelRequirefe81")
 
-//# sourceMappingURL=viz.b2f83f57.js.map
+//# sourceMappingURL=index.b2f83f57.js.map

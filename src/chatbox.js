@@ -55,19 +55,20 @@ async function sendMessage() {
     messageInput.value = "";
 
     // Bot message
-    const botMessage = document.createElement("p");
-    botMessage.classList.add("received-message");
-    botMessage.textContent = "I am a bot";
+    //const botMessage = document.createElement("p");
+    //botMessage.classList.add("received-message");
+    //botMessage.textContent = "I am a bot";
 
-    const botMessengerID = document.createElement("p");
-    botMessengerID.classList.add("chatbot-id");
-    botMessengerID.textContent = "Chatbot:";
+    //const botMessengerID = document.createElement("p");
+    //botMessengerID.classList.add("chatbot-id");
+    //botMessengerID.textContent = "Chatbot:";
 
-    chatbotMessageContainer.appendChild(botMessengerID);
-    chatbotMessageContainer.appendChild(botMessage);
+    //chatbotMessageContainer.appendChild(botMessengerID);
+    //chatbotMessageContainer.appendChild(botMessage);
 
-    chatContainer.appendChild(chatbotMessageContainer);
-    return
+    //chatContainer.appendChild(chatbotMessageContainer);
+    //return
+
 
     const url = 'http://localhost:5005/webhooks/rest/webhook';//'https://dashboards.create.aau.dk/webhooks/rest/webhook';
     //const url = 'https://dashboards.create.aau.dk/webhooks/rest/webhook';
@@ -90,7 +91,8 @@ async function sendMessage() {
 
       const responseData = await response.json();
       const responseDataArray = responseData.messages || []
-
+      console.log(response)
+      console.log(responseData)
 
       responseData.forEach(message => {
         console.log(message.text);
@@ -104,7 +106,6 @@ async function sendMessage() {
       // Handle the error as needed, e.g., show an error message to the user
     }
     import("./viz").then(function (viz) {
-      console.log("I am called")
       viz.createLineChart()
     });
   }
