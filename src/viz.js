@@ -30,11 +30,16 @@ export async function createLineChart() {
   ctx.width = ctx.clientWidth; // Set canvas width to its client width
   ctx.height = ctx.clientHeight; // Set canvas height to its client height
 
+  const colorMap = {
+    'red': 'rgba(255, 0, 0, 0.5)',
+    'blue': 'rgba(0, 0, 255, 0.5)',
+    'green': 'rgba(0, 128, 0, 0.5)'
+  };
+
   let chartStatus = Chart.getChart(ctx)
   if (chartStatus !== undefined) {
     chartStatus.destroy();
   }
-
   new Chart(ctx, {
     type: args.visualization.type,
     data: {
@@ -42,7 +47,7 @@ export async function createLineChart() {
       datasets: [{
         label: 'Timeline Chart',
         data: values,
-        borderColor: '#ff4081',
+        borderColor: colorMap[args.visualization.color],
         borderWidth: 2,
         pointRadius: 5,
         pointBackgroundColor: '#ff4081',
