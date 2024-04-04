@@ -21,9 +21,12 @@ export async function createLineChart() {
       console.error('Error fetching data:', error);
     });
 
+  // Sorts the data if needed
+  data.sort((a, b) => a.x_value - b.x_value);
 
   const labels = data.map(item => item.YQ);
-  const values = data.map(item => item.Value);
+  const x_values = data.map(item => item.x_value);
+  const y_values = data.map(item => item.y_value)
 
   // Creating a line chart
   const ctx = document.getElementById('viz');
@@ -43,32 +46,31 @@ export async function createLineChart() {
   new Chart(ctx, {
     type: args.visualization.type,
     data: {
-      labels: labels,
-      datasets: [{
-        label: 'Timeline Chart',
-        data: values,
+      labels: x_values,
+      datasets: [
+        {
+        label: args.visualization.variable,
+        data: y_values,
         borderColor: colorMap[args.visualization.color],
         borderWidth: 2,
         pointRadius: 5,
-        pointBackgroundColor: '#ff4081',
-      }]
+        pointBackgroundColor: colorMap[args.visualization.color],
+      },
+      ]
     },
     options: {
       scales: {
         x: {
-          type: 'category', // Use category scale for YQ values
-          position: 'bottom',
           title: {
             display: true,
-            text: 'YQ'
+            text: "x_value"
           }
         },
         y: {
           title: {
             display: true,
-            text: 'Value'
-          },
-          beginAtZero: true
+            text: "y_value"
+          }
         }
       }
     }
