@@ -22,11 +22,11 @@ export async function createLineChart() {
     });
 
   // Sorts the data if needed
-  data.sort((a, b) => a.x_value - b.x_value);
+  data.sort((a, b) => a.Value_x - b.Value_x);
 
-  const labels = data.map(item => item.YQ);
-  const x_values = data.map(item => item.x_value);
-  const y_values = data.map(item => item.y_value)
+  //const labels = data.map(item => item.YQ);
+  const x_values = data.map(item => item.Value_x);
+  const y_values = data.map(item => item.Value_y)
 
   // Creating a line chart
   const ctx = document.getElementById('viz');
@@ -63,13 +63,13 @@ export async function createLineChart() {
         x: {
           title: {
             display: true,
-            text: "x_value"
+            text: args.visualization['x-value']
           }
         },
         y: {
           title: {
             display: true,
-            text: "y_value"
+            text: args.visualization['y-value']
           }
         }
       }
