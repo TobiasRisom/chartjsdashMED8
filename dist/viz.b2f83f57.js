@@ -604,45 +604,67 @@ async function createLineChart() {
     }).catch((error)=>{
         console.error("Error fetching data:", error);
     });
-    const labels = data.map((item)=>item.YQ);
-    const values = data.map((item)=>item.Value);
+    // Sorts the data if needed
+    data.sort((a, b)=>a.Value_x - b.Value_x);
+    //const labels = data.map(item => item.YQ);
+    const x_values = data.map((item)=>item.Value_x);
+    const y_values = data.map((item)=>item.Value_y);
+    // Create an object to store sum and count for each unique x_value
+    const sumCountMap = {};
+    // Iterate through the pairs and populate sumCountMap
+    for(let i = 0; i < x_values.length; i++){
+        const x = x_values[i];
+        const y = y_values[i];
+        if (sumCountMap[x]) {
+            sumCountMap[x].sum += y;
+            sumCountMap[x].count++;
+        } else sumCountMap[x] = {
+            sum: y,
+            count: 1
+        };
+    }
+    // Replace x_values and y_values with unique x_values and their average y_values
+    const unique_x_values = Object.keys(sumCountMap).map(Number);
+    const unique_y_values = unique_x_values.map((x)=>sumCountMap[x].sum / sumCountMap[x].count);
     // Creating a line chart
     const ctx = document.getElementById("viz");
     ctx.width = ctx.clientWidth; // Set canvas width to its client width
     ctx.height = ctx.clientHeight; // Set canvas height to its client height
+    const colorMap = {
+        "red": "rgba(255, 0, 0, 0.5)",
+        "blue": "rgba(0, 0, 255, 0.5)",
+        "green": "rgba(0, 128, 0, 0.5)"
+    };
     let chartStatus = (0, _autoDefault.default).getChart(ctx);
     if (chartStatus !== undefined) chartStatus.destroy();
     new (0, _autoDefault.default)(ctx, {
         type: args.visualization.type,
         data: {
-            labels: labels,
+            labels: unique_x_values,
             datasets: [
                 {
-                    label: "Timeline Chart",
-                    data: values,
-                    borderColor: "#ff4081",
+                    label: args.visualization.variable,
+                    data: unique_y_values,
+                    borderColor: colorMap[args.visualization.color],
                     borderWidth: 2,
                     pointRadius: 5,
-                    pointBackgroundColor: "#ff4081"
+                    pointBackgroundColor: colorMap[args.visualization.color]
                 }
             ]
         },
         options: {
             scales: {
                 x: {
-                    type: "category",
-                    position: "bottom",
                     title: {
                         display: true,
-                        text: "YQ"
+                        text: args.visualization["x-value"]
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: "Value"
-                    },
-                    beginAtZero: true
+                        text: args.visualization["y-value"]
+                    }
                 }
             }
         }
