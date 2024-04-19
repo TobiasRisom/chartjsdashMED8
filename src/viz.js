@@ -25,28 +25,34 @@ export async function createLineChart() {
   data.sort((a, b) => a.Value_x - b.Value_x);
 
   //const labels = data.map(item => item.YQ);
-  const x_values = data.map(item => item.Value_x);
-  const y_values = data.map(item => item.Value_y);
+  let x_values = data.map(item => item.Value_x);
+  let y_values = data.map(item => item.Value_y);
 
-  // Create an object to store sum and count for each unique x_value
-  const sumCountMap = {};
+  // Only bucket data if we are dealing with a comparison
+
+  if(args.visualization.data_type === "comparison")
+  {
+    // Create an object to store sum and count for each unique x_value
+    const sumCountMap = {};
 
 // Iterate through the pairs and populate sumCountMap
-  for (let i = 0; i < x_values.length; i++) {
-    const x = x_values[i];
-    const y = y_values[i];
+    for (let i = 0; i < x_values.length; i++) {
+      const x = x_values[i];
+      const y = y_values[i];
 
-    if (sumCountMap[x]) {
-      sumCountMap[x].sum += y;
-      sumCountMap[x].count++;
-    } else {
-      sumCountMap[x] = { sum: y, count: 1 };
+      if (sumCountMap[x]) {
+        sumCountMap[x].sum += y;
+        sumCountMap[x].count++;
+      } else {
+        sumCountMap[x] = { sum: y, count: 1 };
+      }
     }
-  }
 
 // Replace x_values and y_values with unique x_values and their average y_values
-  const unique_x_values = Object.keys(sumCountMap).map(Number);
-  const unique_y_values = unique_x_values.map(x => sumCountMap[x].sum / sumCountMap[x].count);
+    x_values = Object.keys(sumCountMap).map(Number);
+    y_values = x_values.map(x => sumCountMap[x].sum / sumCountMap[x].count);
+  }
+
 
 
 
@@ -68,11 +74,11 @@ export async function createLineChart() {
   new Chart(ctx, {
     type: args.visualization.type,
     data: {
-      labels: unique_x_values,
+      labels: x_values,
       datasets: [
         {
         label: args.visualization.variable,
-        data: unique_y_values,
+        data: y_values,
         borderColor: colorMap[args.visualization.color],
         borderWidth: 2,
         pointRadius: 5,
