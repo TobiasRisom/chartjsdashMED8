@@ -53,13 +53,24 @@ export async function createLineChart() {
     y_values = x_values.map(x => sumCountMap[x].sum / sumCountMap[x].count);
   }
 
-
-
-
   // Creating a line chart
   const ctx = document.getElementById('viz');
   ctx.width = ctx.clientWidth; // Set canvas width to its client width
   ctx.height = ctx.clientHeight; // Set canvas height to its client height
+
+  const fakeSubjectData = {
+    "subject_id": args.visualization.subject_id,
+    "age": args.visualization.FakePatient_age,
+    "nihss_score": args.visualization.FakePatient_nihss_score,
+    "covid_test": args.visualization.FakePatient_covid_test,
+    "door_to_imaging": args.visualization.FakePatient_door_to_imaging,
+    "bleeding_source": args.visualization.FakePatient_bleeding_source,
+    "risk_smoker": args.visualization.FakePatient_risk_smoker,
+    "cholesterol": args.visualization.FakePatient_cholesterol
+  };
+  // Extracting keys and values from the data object
+  const fakekeys = Object.keys(fakeSubjectData);
+  const fakevalues = Object.values(fakeSubjectData);
 
   const colorMap = {
     'red': 'rgba(255, 0, 0, 0.5)',
