@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./css/style.css">
   <!--  <script type="module" src="socket.js"></script>-->
   <script type="module" src="./src/chatbox.js"></script>
+
   <style>
     table {
       border-collapse: collapse;
@@ -53,7 +54,6 @@
 
       <canvas id="viz" style="width: 100%;height: 90%;"></canvas>
       <script type="module" src="./src/viz.js"></script>
-
       <div id="gallery">
         <div id="pop-up">
           <div id="pop-up-button"><svg id="pop-up-arrow" width="14" height="12" viewBox="0 0 14 8" fill="none"
@@ -65,26 +65,26 @@
           <div id="menu-item-container">
             <table>
               <tr>
-                <td>Age</td>
-                <td id="FakePatient_age"></td>
+                <td>age</td>
+                <td id="ageCell"></td>
                 <td>nihss_score</td>
-                <td id="nihss_score"></td>
+                <td id="nihssCell"></td>
                 <td>covid_test</td>
-                <<td id="covid_test"></td>
+                <td id="covidCell"></td>
               </tr>
               <tr>
                 <td>door_to_imaging</td>
-                <td id="door_to_imaging"></td>
+                <td id="dtiCell"></td>
                 <td>bleeding_source</td>
-                <td id="bleeding_source"></td>
+                <td id="bleedCell"></td>
                 <td>door_to_needle</td>
-                <td id="door_to_needle"></td>
+                <td id="dtnCell"></td>
               </tr>
               <tr>
                 <td>risk_smoker</td>
-                <td id="risk_smoker"></td>
+                <td id="smokerCell"></td>
                 <td>cholesterol</td>
-                <td id="cholesterol"></td>
+                <td id="cholesCell"></td>
               </tr>
             </table>
           </div>
@@ -94,22 +94,7 @@
     </div>
 
   </main>
-  <script>
-    fetch('./data/args.json')
-      .then(response => response.json())
-      .then(data => {
-        // Update table with JSON data
-        document.getElementById('FakePatient_age').innerText = args.visualization.FakePatient_age;
-        document.getElementById('FakePatient_nihss_score').innerText = data.nihss_score;
-        document.getElementById('FakePatient_covid_test').innerText = data.covid_test;
-        document.getElementById('FakePatient_door_to_imaging').innerText = data.door_to_imaging;
-        document.getElementById('FakePatient_bleeding_source').innerText = data.bleeding_source;
-        document.getElementById('FakePatient_door_to_needle').innerText = data.door_to_needle;
-        document.getElementById('FakePatient_risk_smoker').innerText = data.risk_smoker;
-        document.getElementById('FakePatient_cholesterol').innerText = data.cholesterol;
-      })
-      .catch(error => console.error('Error fetching JSON:', error));
-  </script>
+
 </body>
 
 </html>

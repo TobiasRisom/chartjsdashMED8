@@ -59,18 +59,24 @@ export async function createLineChart() {
   ctx.height = ctx.clientHeight; // Set canvas height to its client height
 
   const fakeSubjectData = {
-    "subject_id": args.visualization.subject_id,
-    "age": args.visualization.FakePatient_age,
-    "nihss_score": args.visualization.FakePatient_nihss_score,
-    "covid_test": args.visualization.FakePatient_covid_test,
-    "door_to_imaging": args.visualization.FakePatient_door_to_imaging,
-    "bleeding_source": args.visualization.FakePatient_bleeding_source,
-    "risk_smoker": args.visualization.FakePatient_risk_smoker,
-    "cholesterol": args.visualization.FakePatient_cholesterol
+    Age: args.visualization.FakePatient_age,
+    nihss: args.visualization.FakePatient_nihss_score,
+    covid: args.visualization.FakePatient_covid_test,
+    dti: args.visualization.FakePatient_door_to_imaging,
+    bleed: args.visualization.FakePatient_bleeding_source,
+    smoker: args.visualization.FakePatient_risk_smoker,
+    choles: args.visualization.FakePatient_cholesterol,
+    dtn: args.visualization.FakePatient_door_to_needle
   };
-  // Extracting keys and values from the data object
-  const fakekeys = Object.keys(fakeSubjectData);
-  const fakevalues = Object.values(fakeSubjectData);
+  document.getElementById('ageCell').textContent = fakeSubjectData.Age;
+  document.getElementById('nihssCell').textContent = fakeSubjectData.nihss;
+  document.getElementById('dtiCell').textContent = fakeSubjectData.dti;
+  document.getElementById('bleedCell').textContent = fakeSubjectData.bleed;
+  document.getElementById('smokerCell').textContent = fakeSubjectData.smoker;
+  document.getElementById('cholesCell').textContent = fakeSubjectData.choles;
+  document.getElementById('dtnCell').textContent = fakeSubjectData.dtn;
+  document.getElementById('covidCell').textContent = fakeSubjectData.covid;
+
 
   const colorMap = {
     'red': 'rgba(255, 0, 0, 0.5)',
