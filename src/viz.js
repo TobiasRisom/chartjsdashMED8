@@ -59,6 +59,7 @@ export async function createLineChart() {
   ctx.height = ctx.clientHeight; // Set canvas height to its client height
 
   const fakeSubjectData = {
+    name:args.visualization.subject_id,
     Age: args.visualization.FakePatient_age,
     nihss: args.visualization.FakePatient_nihss_score,
     covid: args.visualization.FakePatient_covid_test,
@@ -68,6 +69,7 @@ export async function createLineChart() {
     choles: args.visualization.FakePatient_cholesterol,
     dtn: args.visualization.FakePatient_door_to_needle
   };
+  document.getElementById('Subjectname').textContent = fakeSubjectData.name;
   document.getElementById('ageCell').textContent = fakeSubjectData.Age;
   document.getElementById('nihssCell').textContent = fakeSubjectData.nihss;
   document.getElementById('dtiCell').textContent = fakeSubjectData.dti;
@@ -76,7 +78,6 @@ export async function createLineChart() {
   document.getElementById('cholesCell').textContent = fakeSubjectData.choles;
   document.getElementById('dtnCell').textContent = fakeSubjectData.dtn;
   document.getElementById('covidCell').textContent = fakeSubjectData.covid;
-
 
   const colorMap = {
     'red': 'rgba(255, 0, 0, 0.5)',

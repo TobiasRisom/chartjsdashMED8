@@ -41,7 +41,7 @@
           <svg width="48" height="44" viewBox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6 5.5L12 22L6 38.5L44 22L6 5.5Z" stroke="black" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" />
-            <path d="M12 22H44" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 22H44" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
       </div>
@@ -55,7 +55,7 @@
       <canvas id="viz" style="width: 100%;height: 90%;"></canvas>
       <script type="module" src="./src/viz.js"></script>
       <div id="gallery">
-        <div id="pop-up">
+        <div id="pop-up" class="pop-up-expanded">
           <div id="pop-up-button"><svg id="pop-up-arrow" width="14" height="12" viewBox="0 0 14 8" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M0.999999 1L7 7L13 1" stroke="black" stroke-width="2" stroke-linecap="round"
@@ -64,6 +64,7 @@
           </div>
           <div id="menu-item-container">
             <table>
+              <th><span id="Subjectname"></span> Data</th>
               <tr>
                 <td>age</td>
                 <td id="ageCell"></td>
