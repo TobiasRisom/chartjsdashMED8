@@ -49,8 +49,9 @@ export async function createLineChart() {
     }
 
 // Replace x_values and y_values with unique x_values and their average y_values
-    x_values = Object.keys(sumCountMap).map(Number);
-    y_values = x_values.map(x => sumCountMap[x].sum / sumCountMap[x].count);
+//    x_values = Object.keys(sumCountMap).map(Number);
+//    console.log(sumCountMap[x])
+//    y_values = x_values.map(x => sumCountMap[x].sum / sumCountMap[x].count);
   }
 
   // Creating a line chart
@@ -59,25 +60,27 @@ export async function createLineChart() {
   ctx.height = ctx.clientHeight; // Set canvas height to its client height
 
   const fakeSubjectData = {
-    name:args.visualization.subject_id,
-    Age: args.visualization.FakePatient_age,
+    name: args.visualization.subject_id,
+    age: args.visualization.FakePatient_age,
+    onset: args.visualization.FakePatient_onset_to_door,
+    imaging: args.visualization.FakePatient_door_to_imaging,
+    needle: args.visualization.FakePatient_door_to_needle,
+    premrs: args.visualization.FakePatient_prestroke_mrs,
     nihss: args.visualization.FakePatient_nihss_score,
-    covid: args.visualization.FakePatient_covid_test,
-    dti: args.visualization.FakePatient_door_to_imaging,
-    bleed: args.visualization.FakePatient_bleeding_source,
-    smoker: args.visualization.FakePatient_risk_smoker,
-    choles: args.visualization.FakePatient_cholesterol,
-    dtn: args.visualization.FakePatient_door_to_needle
+    sysblood: args.visualization.FakePatient_sys_blood_pressure,
+    disblood: args.visualization.FakePatient_dis_blood_pressure,
+    chole: args.visualization.FakePatient_cholestrol,
   };
   document.getElementById('Subjectname').textContent = fakeSubjectData.name;
-  document.getElementById('ageCell').textContent = fakeSubjectData.Age;
+  document.getElementById('ageCell').textContent = fakeSubjectData.age;
+  document.getElementById('onsetCell').textContent = fakeSubjectData.onset;
+  document.getElementById('imagingCell').textContent = fakeSubjectData.imaging;
+  document.getElementById('needleCell').textContent = fakeSubjectData.needle;
+  document.getElementById('premrsCell').textContent = fakeSubjectData.premrs;
   document.getElementById('nihssCell').textContent = fakeSubjectData.nihss;
-  document.getElementById('dtiCell').textContent = fakeSubjectData.dti;
-  document.getElementById('bleedCell').textContent = fakeSubjectData.bleed;
-  document.getElementById('smokerCell').textContent = fakeSubjectData.smoker;
-  document.getElementById('cholesCell').textContent = fakeSubjectData.choles;
-  document.getElementById('dtnCell').textContent = fakeSubjectData.dtn;
-  document.getElementById('covidCell').textContent = fakeSubjectData.covid;
+  document.getElementById('sysbloodCell').textContent = fakeSubjectData.sysblood;
+  document.getElementById('disbloodCell').textContent = fakeSubjectData.disblood;
+  document.getElementById('choleCell').textContent = fakeSubjectData.chole;
 
   const colorMap = {
     'red': 'rgba(255, 0, 0, 0.5)',
