@@ -94,16 +94,16 @@ export async function createLineChart() {
     chartStatus.destroy();
   }
   new Chart(ctx, {
-    type: args.visualization.type,
+    type: args.visualization.plot_type,
     data: {
       labels: x_values,
       datasets: [
         {
-        label: args.visualization.variable,
+        label: "Data",
         data: y_values,
         borderColor: colorMap[args.visualization.color],
-        borderWidth: 2,
-        pointRadius: 5,
+        borderWidth: 1,
+        pointRadius: 1,
         pointBackgroundColor: colorMap[args.visualization.color],
       },
       ]
