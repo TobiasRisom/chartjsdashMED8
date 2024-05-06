@@ -607,29 +607,55 @@ async function createLineChart() {
     // Sorts the data if needed
     data.sort((a, b)=>a.Value_x - b.Value_x);
     //const labels = data.map(item => item.YQ);
-    const x_values = data.map((item)=>item.Value_x);
-    const y_values = data.map((item)=>item.Value_y);
-    // Create an object to store sum and count for each unique x_value
-    const sumCountMap = {};
-    // Iterate through the pairs and populate sumCountMap
-    for(let i = 0; i < x_values.length; i++){
-        const x = x_values[i];
-        const y = y_values[i];
-        if (sumCountMap[x]) {
-            sumCountMap[x].sum += y;
-            sumCountMap[x].count++;
-        } else sumCountMap[x] = {
-            sum: y,
-            count: 1
-        };
-    }
+    let x_values = data.map((item)=>item.Value_x);
+    let y_values = data.map((item)=>item.Value_y);
+    // Only bucket data if we are dealing with a comparison
+    if (args.visualization.data_type === "comparison") {
+        // Create an object to store sum and count for each unique x_value
+        const sumCountMap = {};
+        // Iterate through the pairs and populate sumCountMap
+        for(let i = 0; i < x_values.length; i++){
+            const x = x_values[i];
+            const y = y_values[i];
+            if (sumCountMap[x]) {
+                sumCountMap[x].sum += y;
+                sumCountMap[x].count++;
+            } else sumCountMap[x] = {
+                sum: y,
+                count: 1
+            };
+        }
     // Replace x_values and y_values with unique x_values and their average y_values
-    const unique_x_values = Object.keys(sumCountMap).map(Number);
-    const unique_y_values = unique_x_values.map((x)=>sumCountMap[x].sum / sumCountMap[x].count);
+    //    x_values = Object.keys(sumCountMap).map(Number);
+    //    console.log(sumCountMap[x])
+    //    y_values = x_values.map(x => sumCountMap[x].sum / sumCountMap[x].count);
+    }
     // Creating a line chart
     const ctx = document.getElementById("viz");
     ctx.width = ctx.clientWidth; // Set canvas width to its client width
     ctx.height = ctx.clientHeight; // Set canvas height to its client height
+    const fakeSubjectData = {
+        name: args.visualization.subject_id,
+        age: args.visualization.FakePatient_age,
+        onset: args.visualization.FakePatient_onset_to_door,
+        imaging: args.visualization.FakePatient_door_to_imaging,
+        needle: args.visualization.FakePatient_door_to_needle,
+        premrs: args.visualization.FakePatient_prestroke_mrs,
+        nihss: args.visualization.FakePatient_nihss_score,
+        sysblood: args.visualization.FakePatient_sys_blood_pressure,
+        disblood: args.visualization.FakePatient_dis_blood_pressure,
+        chole: args.visualization.FakePatient_cholestrol
+    };
+    document.getElementById("Subjectname").textContent = fakeSubjectData.name;
+    document.getElementById("ageCell").textContent = fakeSubjectData.age;
+    document.getElementById("onsetCell").textContent = fakeSubjectData.onset;
+    document.getElementById("imagingCell").textContent = fakeSubjectData.imaging;
+    document.getElementById("needleCell").textContent = fakeSubjectData.needle;
+    document.getElementById("premrsCell").textContent = fakeSubjectData.premrs;
+    document.getElementById("nihssCell").textContent = fakeSubjectData.nihss;
+    document.getElementById("sysbloodCell").textContent = fakeSubjectData.sysblood;
+    document.getElementById("disbloodCell").textContent = fakeSubjectData.disblood;
+    document.getElementById("choleCell").textContent = fakeSubjectData.chole;
     const colorMap = {
         "red": "rgba(255, 0, 0, 0.5)",
         "blue": "rgba(0, 0, 255, 0.5)",
@@ -640,11 +666,11 @@ async function createLineChart() {
     new (0, _autoDefault.default)(ctx, {
         type: args.visualization.type,
         data: {
-            labels: unique_x_values,
+            labels: x_values,
             datasets: [
                 {
                     label: args.visualization.variable,
-                    data: unique_y_values,
+                    data: y_values,
                     borderColor: colorMap[args.visualization.color],
                     borderWidth: 2,
                     pointRadius: 5,

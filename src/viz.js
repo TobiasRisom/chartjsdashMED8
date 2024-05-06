@@ -71,6 +71,7 @@ export async function createLineChart() {
     disblood: args.visualization.FakePatient_dis_blood_pressure,
     chole: args.visualization.FakePatient_cholestrol,
   };
+
   document.getElementById('Subjectname').textContent = fakeSubjectData.name;
   document.getElementById('ageCell').textContent = fakeSubjectData.age;
   document.getElementById('onsetCell').textContent = fakeSubjectData.onset;
